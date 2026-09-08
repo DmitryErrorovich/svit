@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="uk">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#152d32"><meta name="description" content="Порахуйте орієнтовну ємність зарядної станції для ноутбука, монітора, роутера та освітлення."><title>Світло — автономність вашого робочого місця</title><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script></head>
+<body>
+<header class="top"><a class="brand" href="./" aria-label="Світло, головна"><span class="brand-icon">↯</span> світло<span class="brand-dot">.</span></a><span class="top-label">ЕНЕРГІЯ ДЛЯ РОБОТИ</span><span class="badge">Калькулятор</span></header>
+<main>
+<div class="intro"><p class="eyebrow">ПРАЦЮЙТЕ З ДОМУ, НАВІТЬ БЕЗ СВІТЛА</p><h1>Скільки енергії<br>потрібно <span>вашому дню?</span></h1><p>Додайте техніку та час роботи. Дізнайтеся, яку ємність зарядної станції шукати.</p></div>
+<div class="workspace">
+<section class="setup" aria-labelledby="devices-title"><div class="section-heading"><h2 id="devices-title"><span class="step">01</span> Ваше робоче місце</h2><button class="text-button" id="reset">Скинути</button></div>
+<p class="help">Початкові потужності — приклади. Замініть їх на середнє споживання вашої техніки.</p>
+<div class="table-head" aria-hidden="true"><span>Прилад</span><span>Вт / шт.</span><span>Кількість</span></div><div id="devices"></div>
+<button id="add" class="add-button">＋ Додати свій прилад</button>
+<div class="time-section"><div class="section-heading"><h2><span class="step">02</span> Час без світла</h2><output class="hours-label" id="hours-label" for="hours">4 год</output></div><label class="sr-only" for="hours">Бажаний час автономної роботи, годин</label><input type="range" id="hours" min="1" max="12" step="0.5" value="4"><div class="range-labels"><span>1 година</span><span>12 годин</span></div><div class="time-shortcuts"><button data-hours="2">2 год</button><button data-hours="4" class="selected" aria-pressed="true">4 год</button><button data-hours="8">Робочий день · 8 год</button></div></div>
+<details><summary>Припущення розрахунку</summary><div class="assumptions"><p>Усі вибрані прилади працюють одночасно з указаним середнім споживанням. Розрахунок для живлення через розетки станції.</p><label>Ефективність живлення, %<input id="efficiency" type="number" min="50" max="100" value="85" required></label><label>Залишок заряду наприкінці, %<input id="reserve" type="number" min="0" max="50" value="10" required></label><p>Початкові 85% ефективності та 10% залишку — умовні припущення, а не характеристики конкретної моделі. Власне споживання станції окремо не враховано.</p><p>Ємність = потужність × години ÷ ефективність ÷ доступна частка заряду.</p></div></details>
+</section>
+<aside class="results" aria-label="Результат розрахунку"><section class="result-card"><div class="result-top"><span>ВАШ ОРІЄНТИР</span><span class="pill">Попередня оцінка</span></div><p class="result-label">Номінальна ємність станції</p><div class="capacity"><output id="capacity">—</output><span>Вт·год</span></div><p id="result-description" class="result-description"></p><div class="metrics"><div><span>Споживання разом</span><strong id="load">—</strong></div><div><span>Енергія для приладів</span><strong id="energy">—</strong></div></div><div class="power-note"><span>↗</span><p id="power-note"></p></div></section>
+<section class="comparison"><h2>На скільки вистачить?</h2><p class="help">Приклади ємностей за ваших налаштувань. Станція має також витримувати навантаження.</p><div id="comparison"></div><p class="legend"><span></span> Досягає бажаного часу</p></section><p class="result-footnote" id="validation" role="status" aria-live="polite">Оцінка для електроніки та освітлення. Не підходить для підбору живлення холодильників, насосів або обігрівачів.</p></aside>
+</div>
+<footer><span>світло. <span class="muted">Менше невідомого — більше автономності.</span></span><span>Перевірте характеристики станції перед покупкою.</span></footer>
+</main></body></html>
