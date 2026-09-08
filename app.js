@@ -1,7 +1,9 @@
 import {calculate} from './calculation.mjs';
+import {createStationPicker} from './station-picker.mjs';
 const initial=()=>[{name:'Ноутбук',watts:45,quantity:1,active:true},{name:'Монітор',watts:30,quantity:1,active:true},{name:'Роутер',watts:10,quantity:1,active:true},{name:'LED-лампа',watts:8,quantity:1,active:true}];
 let devices=initial();
 const $=id=>document.getElementById(id);
+const updateStations=createStationPicker($('station-picker'));
 const format=n=>new Intl.NumberFormat('uk-UA',{maximumFractionDigits:1}).format(n);
 const runtimeLabel=n=>{const mins=Math.floor(n*60);return mins<1?'Менше 1 хв':`${Math.floor(mins/60)} год ${mins%60} хв`;};
 function drawDevices(){
@@ -20,6 +22,7 @@ function update(){
   const hours=Number($('hours').value);$('hours-label').textContent=`${format(hours)} год`;
   document.querySelectorAll('[data-hours]').forEach(b=>{const selected=Number(b.dataset.hours)===hours;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));});
   const r=calculate(devices,hours,$('efficiency').value===''?NaN:Number($('efficiency').value),$('reserve').value===''?NaN:Number($('reserve').value));
+  updateStations(r,hours);
   $('validation').classList.toggle('error',!r);
   if(!r||r.watts===0){$('capacity').textContent='—';$('load').textContent='—';$('energy').textContent='—';$('result-description').textContent=r?'Виберіть хоча б один прилад.':'Перевірте введені значення.';$('power-note').textContent='Результат з’явиться після заповнення.';$('comparison').replaceChildren();$('validation').textContent=r?'Позначте техніку, яку плануєте живити.':'Потужність: 1–3000 Вт; кількість: 1–20 цілих одиниць. Ефективність: 50–100%; залишок: 0–50%.';return;}
   $('capacity').textContent=format(r.capacity);$('load').textContent=`${format(r.watts)} Вт`;$('energy').textContent=`${format(r.energy)} Вт·год`;
@@ -34,3 +37,4 @@ $('reset').addEventListener('click',()=>{devices=initial();$('hours').value=4;$(
 for(const id of ['hours','efficiency','reserve'])$(id).addEventListener('input',update);
 document.querySelectorAll('[data-hours]').forEach(b=>b.addEventListener('click',()=>{$('hours').value=b.dataset.hours;update();}));
 drawDevices();update();
+
